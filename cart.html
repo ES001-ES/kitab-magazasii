@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitab Dünyası - Səbət</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <span>Kitab Mağazası</span>
+                </a>
+                
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link">Ana Səhifə</a>
+                    <a href="products.html" class="nav-link">Kitablar</a>
+                    <a href="favorites.html" class="nav-link">
+                        <i class="fas fa-heart"></i>
+                        Sevimlilər
+                        <span id="favorites-count" class="count-badge">0</span>
+                    </a>
+                    <a href="cart.html" class="nav-link active">
+                        <i class="fas fa-shopping-cart"></i>
+                        Səbət
+                        <span id="cart-count" class="count-badge">0</span>
+                    </a>
+                </nav>
+
+                <div class="auth-section">
+                    <div id="auth-buttons" class="auth-buttons">
+                        <button onclick="window.location.href='login.html'" class="btn btn-outline">Daxil ol</button>
+                        <button onclick="window.location.href='login.html'" class="btn btn-primary">Qeydiyyat</button>
+                    </div>
+                    <div id="user-menu" class="user-menu" style="display: none;">
+                        <div class="user-info">
+                            <span id="username-display"></span>
+                            <div class="dropdown">
+                                <button class="dropdown-btn">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="profile.html">Profil</a>
+                                    <a href="#" onclick="logout()">Çıxış</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bonus-display">
+                            <i class="fas fa-star"></i>
+                            <span id="user-bonus">0</span> bonus
+                        </div>
+                    </div>
+                </div>
+
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <div class="container">
+            <div class="page-header">
+                <h1>Səbətim</h1>
+                <p>Seçdiyiniz kitabları yoxlayın və sifarişi tamamlayın</p>
+            </div>
+
+            <div class="cart-container">
+                <!-- Cart Items -->
+                <div class="cart-items">
+                    <div id="cart-items-list">
+                        <!-- Cart items will be loaded here -->
+                    </div>
+
+                    <!-- Empty Cart -->
+                    <div id="empty-cart" class="empty-state" style="display: none;">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Səbətiniz boşdur</h3>
+                        <p>Kitab əlavə etmək üçün məhsullar səhifəsinə daxil olun</p>
+                        <button class="btn btn-primary" onclick="window.location.href='products.html'">
+                            Kitablara bax
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cart Summary -->
+                <div id="cart-summary" class="cart-summary">
+                    <div class="summary-card">
+                        <h3>Sifariş Xülasəsi</h3>
+                        
+                        <div class="summary-row">
+                            <span>Məhsullar (<span id="total-items">0</span>)</span>
+                            <span id="subtotal">0.00 ₼</span>
+                        </div>
+
+                        <div class="summary-row">
+                            <span>Çatdırılma</span>
+                            <span id="shipping-cost">Pulsuz</span>
+                        </div>
+
+                        <div class="bonus-section">
+                            <div class="summary-row">
+                                <span>Bonus balansınız</span>
+                                <span class="bonus-amount">
+                                    <i class="fas fa-star"></i>
+                                    <span id="user-bonus-balance">0</span>
+                                </span>
+                            </div>
+                            <div class="bonus-usage">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="use-bonus">
+                                    <span class="checkmark"></span>
+                                    Bonus istifadə et
+                                </label>
+                                <input type="number" id="bonus-amount" placeholder="Bonus miqdarı" min="0" max="0" disabled>
+                            </div>
+                        </div>
+
+                        <div class="summary-row discount-row" id="bonus-discount" style="display: none;">
+                            <span>Bonus endirim</span>
+                            <span class="discount-amount">-<span id="bonus-discount-amount">0.00</span> ₼</span>
+                        </div>
+
+                        <hr>
+
+                        <div class="summary-row total-row">
+                            <span>Yekun</span>
+                            <span id="total-amount">0.00 ₼</span>
+                        </div>
+
+                        <div class="cart-actions">
+                            <button class="btn btn-primary btn-full" onclick="proceedToCheckout()">
+                                <i class="fas fa-credit-card"></i>
+                                Ödənişə keç
+                            </button>
+                            <button class="btn btn-outline btn-full" onclick="clearCart()">
+                                <i class="fas fa-trash"></i>
+                                Səbəti təmizlə
+                            </button>
+                        </div>
+
+                        <div class="security-info">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>SSL şifrələməsi ilə təhlükəsiz alış-veriş</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Required Modal -->
+    <div id="login-required-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-user-lock"></i>
+                <h3>Giriş Tələb olunur</h3>
+            </div>
+            <div class="modal-body">
+                <p>Ödəniş etmək üçün hesabınıza daxil olmalısınız</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('login-required-modal')">İmtina</button>
+                <button class="btn btn-primary" onclick="window.location.href='login.html'">Daxil ol</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>Kitab Mağazası</span>
+                    </div>
+                    <p>Ən yaxşı kitabları kəşf edin və oxuma səyahətinizə başlayın...</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Səhifələr</h4>
+                    <ul>
+                        <li><a href="index.html">Ana Səhifə</a></li>
+                        <li><a href="products.html">Kitablar</a></li>
+                        <li><a href="favorites.html">Sevimlilər</a></li>
+                        <li><a href="cart.html">Səbət</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Əlaqə</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +994 51 000 00 00</li>
+                        <li><i class="fas fa-envelope"></i> info@kitabdunyasi.az</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Bakı, Azərbaycan</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Kitab Dünyası. Bütün hüquqlar qorunur.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>

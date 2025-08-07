@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitab Dünyası - Admin Panel</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/admin.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-navbar">
+            <div class="admin-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>Admin Panel</span>
+            </div>
+            
+            <div class="admin-user">
+                <span>Admin</span>
+                <div class="dropdown">
+                    <button class="dropdown-btn">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="index.html">Sayta qayıt</a>
+                        <a href="#" onclick="adminLogout()">Çıxış</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    İdarə Paneli
+                </a>
+                <a href="#products" class="nav-item" data-section="products">
+                    <i class="fas fa-book"></i>
+                    Məhsullar
+                </a>
+                <a href="#orders" class="nav-item" data-section="orders">
+                    <i class="fas fa-shopping-bag"></i>
+                    Sifarişlər
+                </a>
+                <a href="#users" class="nav-item" data-section="users">
+                    <i class="fas fa-users"></i>
+                    İstifadəçilər
+                </a>
+                <a href="#analytics" class="nav-item" data-section="analytics">
+                    <i class="fas fa-chart-bar"></i>
+                    Analitika
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="admin-section active">
+                <div class="section-header">
+                    <h1>İdarə Paneli</h1>
+                    <p>Ümumi məlumatlar və statistikalar</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon primary">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-products">0</h3>
+                            <p>Ümumi Kitab</p>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +12%
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon success">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-users-stat">0</h3>
+                            <p>İstifadəçilər</p>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +8%
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon warning">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-orders">0</h3>
+                            <p>Sifarişlər</p>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +15%
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon danger">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-revenue">0 ₼</h3>
+                            <p>Gəlir</p>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +23%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Recent Activity -->
+                <div class="activity-section">
+                    <h3>Son Fəaliyyətlər</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p>Yeni kitab əlavə edildi: "Çılğın Türk"</p>
+                                <span class="activity-time">5 dəqiqə əvvəl</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p>Yeni istifadəçi qeydiyyatdan keçdi</p>
+                                <span class="activity-time">12 dəqiqə əvvəl</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p>Yeni sifariş alındı - #1023</p>
+                                <span class="activity-time">1 saat əvvəl</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section id="products-section" class="admin-section">
+                <div class="section-header">
+                    <h1>Məhsul İdarəetməsi</h1>
+                    <button class="btn btn-primary" onclick="showAddProductModal()">
+                        <i class="fas fa-plus"></i>
+                        Yeni Kitab Əlavə Et
+                    </button>
+                </div>
+
+                <!-- Products Table -->
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Şəkil</th>
+                                <th>Ad</th>
+                                <th>Müəllif</th>
+                                <th>Kateqoriya</th>
+                                <th>Qiymət</th>
+                                <th>Stok</th>
+                                <th>Əməliyyatlar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-table">
+                            <!-- Products will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders-section" class="admin-section">
+                <div class="section-header">
+                    <h1>Sifariş İdarəetməsi</h1>
+                </div>
+
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Sifariş ID</th>
+                                <th>Müştəri</th>
+                                <th>Məhsullar</th>
+                                <th>Məbləğ</th>
+                                <th>Status</th>
+                                <th>Tarix</th>
+                                <th>Əməliyyatlar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table">
+                            <!-- Orders will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Users Section -->
+            <section id="users-section" class="admin-section">
+                <div class="section-header">
+                    <h1>İstifadəçi İdarəetməsi</h1>
+                </div>
+
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Ad</th>
+                                <th>Email</th>
+                                <th>Qeydiyyat Tarixi</th>
+                                <th>Sifarişlər</th>
+                                <th>Bonus</th>
+                                <th>Status</th>
+                                <th>Əməliyyatlar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table">
+                            <!-- Users will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics-section" class="admin-section">
+                <div class="section-header">
+                    <h1>Analitika</h1>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Ən Çox Satan Kitablar</h3>
+                        <div id="top-selling-books" class="analytics-list">
+                            <!-- Top selling books will be loaded here -->
+                        </div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <h3>Aktiv İstifadəçilər</h3>
+                        <div id="active-users" class="analytics-list">
+                            <!-- Active users will be loaded here -->
+                        </div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <h3>Aylıq Gəlir</h3>
+                        <div class="revenue-chart">
+                            <div class="revenue-bars">
+                                <div class="revenue-bar" style="height: 40%"><span>Yan</span></div>
+                                <div class="revenue-bar" style="height: 60%"><span>Fev</span></div>
+                                <div class="revenue-bar" style="height: 80%"><span>Mar</span></div>
+                                <div class="revenue-bar" style="height: 45%"><span>Apr</span></div>
+                                <div class="revenue-bar" style="height: 90%"><span>May</span></div>
+                                <div class="revenue-bar" style="height: 70%"><span>İyun</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="add-product-modal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>Yeni Kitab Əlavə Et</h3>
+                <button class="close-btn" onclick="closeModal('add-product-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add-product-form" onsubmit="return addProduct(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="product-title">Kitab Adı</label>
+                            <input type="text" id="product-title" name="title" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-author">Müəllif</label>
+                            <input type="text" id="product-author" name="author" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-category">Kateqoriya</label>
+                            <select id="product-category" name="category" required>
+                                <option value="">Seçin</option>
+                                <option value="roman">Roman</option>
+                                <option value="elmi">Elmi</option>
+                                <option value="tarixi">Tarixi</option>
+                                <option value="uşaq">Uşaq</option>
+                                <option value="poeziya">Poeziya</option>
+                                <option value="dram">Dram</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-price">Qiymət (₼)</label>
+                            <input type="number" id="product-price" name="price" step="0.01" min="0" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-stock">Stok Sayı</label>
+                            <input type="number" id="product-stock" name="stock" min="0" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-image">Şəkil URL</label>
+                            <input type="url" id="product-image" name="image" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-description">Təsvir</label>
+                        <textarea id="product-description" name="description" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="closeModal('add-product-modal')">
+                            İmtina
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Əlavə Et
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div id="edit-product-modal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>Kitabı Redaktə Et</h3>
+                <button class="close-btn" onclick="closeModal('edit-product-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-product-form" onsubmit="return updateProduct(event)">
+                    <input type="hidden" id="edit-product-id" name="id">
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="edit-product-title">Kitab Adı</label>
+                            <input type="text" id="edit-product-title" name="title" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit-product-author">Müəllif</label>
+                            <input type="text" id="edit-product-author" name="author" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit-product-category">Kateqoriya</label>
+                            <select id="edit-product-category" name="category" required>
+                                <option value="roman">Roman</option>
+                                <option value="elmi">Elmi</option>
+                                <option value="tarixi">Tarixi</option>
+                                <option value="uşaq">Uşaq</option>
+                                <option value="poeziya">Poeziya</option>
+                                <option value="dram">Dram</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit-product-price">Qiymət (₼)</label>
+                            <input type="number" id="edit-product-price" name="price" step="0.01" min="0" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit-product-stock">Stok Sayı</label>
+                            <input type="number" id="edit-product-stock" name="stock" min="0" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit-product-image">Şəkil URL</label>
+                            <input type="url" id="edit-product-image" name="image" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-product-description">Təsvir</label>
+                        <textarea id="edit-product-description" name="description" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="closeModal('edit-product-modal')">
+                            İmtina
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Yenilə
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

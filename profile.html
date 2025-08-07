@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitab Dünyası - Profil</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <span>Kitab Mağazası</span>
+                </a>
+                
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link">Ana Səhifə</a>
+                    <a href="products.html" class="nav-link">Kitablar</a>
+                    <a href="favorites.html" class="nav-link">
+                        <i class="fas fa-heart"></i>
+                        Sevimlilər
+                        <span id="favorites-count" class="count-badge">0</span>
+                    </a>
+                    <a href="cart.html" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        Səbət
+                        <span id="cart-count" class="count-badge">0</span>
+                    </a>
+                </nav>
+
+                <div class="auth-section">
+                    <div id="user-menu" class="user-menu">
+                        <div class="user-info">
+                            <span id="username-display"></span>
+                            <div class="dropdown">
+                                <button class="dropdown-btn">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="profile.html">Profil</a>
+                                    <a href="#" onclick="logout()">Çıxış</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bonus-display">
+                            <i class="fas fa-star"></i>
+                            <span id="user-bonus">0</span> bonus
+                        </div>
+                    </div>
+                </div>
+
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-container">
+                <!-- Profile Sidebar -->
+                <aside class="profile-sidebar">
+                    <div class="profile-info">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 id="profile-name">İstifadəçi</h3>
+                        <p id="profile-email">email@example.com</p>
+                        <div class="profile-stats">
+                            <div class="stat">
+                                <span class="stat-value" id="total-orders">0</span>
+                                <span class="stat-label">Sifariş</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value" id="total-spent">0 ₼</span>
+                                <span class="stat-label">Xərclənən</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value" id="bonus-points">0</span>
+                                <span class="stat-label">Bonus</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <nav class="profile-nav">
+                        <a href="#profile-tab" class="nav-item active" data-tab="profile">
+                            <i class="fas fa-user"></i>
+                            Profil Məlumatları
+                        </a>
+                        <a href="#orders-tab" class="nav-item" data-tab="orders">
+                            <i class="fas fa-shopping-bag"></i>
+                            Sifarişlərim
+                        </a>
+                        <a href="#bonus-tab" class="nav-item" data-tab="bonus">
+                            <i class="fas fa-star"></i>
+                            Bonus Sistemi
+                        </a>
+                        <a href="#settings-tab" class="nav-item" data-tab="settings">
+                            <i class="fas fa-cog"></i>
+                            Parametrlər
+                        </a>
+                    </nav>
+                </aside>
+
+                <!-- Profile Content -->
+                <main class="profile-content">
+                    <!-- Profile Tab -->
+                    <div id="profile-tab" class="tab-content active">
+                        <div class="tab-header">
+                            <h2>Profil Məlumatları</h2>
+                            <p>Şəxsi məlumatlarınızı idarə edin</p>
+                        </div>
+
+                        <form id="profile-form" onsubmit="return updateProfile(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="update-name">Ad Soyad</label>
+                                    <input type="text" id="update-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="update-email">Email</label>
+                                    <input type="email" id="update-email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="update-phone">Telefon</label>
+                                    <input type="tel" id="update-phone">
+                                </div>
+                                <div class="form-group">
+                                    <label for="update-city">Şəhər</label>
+                                    <select id="update-city">
+                                        <option value="">Şəhər seçin</option>
+                                        <option value="baku">Bakı</option>
+                                        <option value="ganja">Gəncə</option>
+                                        <option value="sumgait">Sumqayıt</option>
+                                        <option value="mingachevir">Mingəçevir</option>
+                                        <option value="other">Digər</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="update-address">Ünvan</label>
+                                <textarea id="update-address" rows="3"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i>
+                                    Yenilə
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Orders Tab -->
+                    <div id="orders-tab" class="tab-content">
+                        <div class="tab-header">
+                            <h2>Sifarişlərim</h2>
+                            <p>Keçmiş sifarişlərinizi yoxlayın</p>
+                        </div>
+
+                        <div id="orders-list" class="orders-list">
+                            <!-- Orders will be loaded here -->
+                        </div>
+
+                        <div id="no-orders" class="empty-state" style="display: none;">
+                            <i class="fas fa-shopping-bag"></i>
+                            <h3>Hələ sifarişiniz yoxdur</h3>
+                            <p>İlk sifarişinizi vermək üçün kitabları kəşf edin</p>
+                            <button class="btn btn-primary" onclick="window.location.href='products.html'">
+                                Kitablara bax
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Bonus Tab -->
+                    <div id="bonus-tab" class="tab-content">
+                        <div class="tab-header">
+                            <h2>Bonus Sistemi</h2>
+                            <p>Bonus balansınızı və tarixçəni görün</p>
+                        </div>
+
+                        <div class="bonus-info">
+                            <div class="bonus-card">
+                                <div class="bonus-balance">
+                                    <i class="fas fa-star"></i>
+                                    <div class="balance-info">
+                                        <h3 id="current-bonus">0</h3>
+                                        <p>Cari Bonus Balansı</p>
+                                    </div>
+                                </div>
+                                <div class="bonus-value">
+                                    <p>1 Bonus = 0.01 ₼</p>
+                                </div>
+                            </div>
+
+                            <div class="bonus-rules">
+                                <h4>Bonus Qaydaları</h4>
+                                <ul>
+                                    <li>Hər 1 ₼ alış-veriş üçün 1 bonus qazanırsınız</li>
+                                    <li>Bonusları növbəti alış-verişlərdə istifadə edə bilərsiniz</li>
+                                    <li>Minimum 10 bonus istifadə edə bilərsiniz</li>
+                                    <li>Bonusların 1 il müddətlə etibarlıdır</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div id="bonus-history" class="bonus-history">
+                            <h4>Bonus Tarixçəsi</h4>
+                            <div id="bonus-transactions">
+                                <!-- Bonus transactions will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Tab -->
+                    <div id="settings-tab" class="tab-content">
+                        <div class="tab-header">
+                            <h2>Parametrlər</h2>
+                            <p>Hesab parametrlərinizi idarə edin</p>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>Şifrə Dəyişdir</h4>
+                            <form id="password-form" onsubmit="return changePassword(event)">
+                                <div class="form-group">
+                                    <label for="current-password">Cari Şifrə</label>
+                                    <input type="password" id="current-password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-password">Yeni Şifrə</label>
+                                    <input type="password" id="new-password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm-password">Yeni Şifrəni Təkrarla</label>
+                                    <input type="password" id="confirm-password" required>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-key"></i>
+                                        Şifrəni Dəyişdir
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="settings-section">
+                            <h4>Bildiriş Parametrləri</h4>
+                            <div class="settings-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="email-notifications" checked>
+                                    <span class="checkmark"></span>
+                                    Email bildirişləri
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="promo-notifications" checked>
+                                    <span class="checkmark"></span>
+                                    Promosyon bildirişləri
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="order-notifications" checked>
+                                    <span class="checkmark"></span>
+                                    Sifariş bildirişləri
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-section danger-zone">
+                            <h4>Təhlükə Zonası</h4>
+                            <p>Bu əməliyyatlar geri alınmaz</p>
+                            <button class="btn btn-danger" onclick="confirmDeleteAccount()">
+                                <i class="fas fa-trash"></i>
+                                Hesabı Sil
+                            </button>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>Kitab Dünyası</span>
+                    </div>
+                    <p>Ən yaxşı kitabları kəşf edin və oxuma səyahətinizə başlayın</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Səhifələr</h4>
+                    <ul>
+                        <li><a href="index.html">Ana Səhifə</a></li>
+                        <li><a href="products.html">Kitablar</a></li>
+                        <li><a href="favorites.html">Sevimlilər</a></li>
+                        <li><a href="cart.html">Səbət</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Əlaqə</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +994 50 123 45 67</li>
+                        <li><i class="fas fa-envelope"></i> info@kitabdunyasi.az</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Bakı, Azərbaycan</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Kitab Dünyası. Bütün hüquqlar qorunur.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

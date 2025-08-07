@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitap Dünyası - Ana Sayfa</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="book-loader">
+                <div class="book-page"></div>
+                <div class="book-page"></div>
+                <div class="book-page"></div>
+            </div>
+            <p>Yüklənir...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <span>Kitab Mağazası</span>
+                </a>
+                
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link active">Ana Səhifə</a>
+                    <a href="products.html" class="nav-link">Kitablar</a>
+                    <a href="favorites.html" class="nav-link">
+                        <i class="fas fa-heart"></i>
+                        Sevimlilər
+                        <span id="favorites-count" class="count-badge">0</span>
+                    </a>
+                    <a href="cart.html" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        Səbət
+                        <span id="cart-count" class="count-badge">0</span>
+                    </a>
+                </nav>
+
+                <div class="auth-section">
+                    <div id="auth-buttons" class="auth-buttons">
+                        <button onclick="window.location.href='login.html'" class="btn btn-outline">Daxil ol</button>
+                        <button onclick="window.location.href='login.html'" class="btn btn-primary">Qeydiyyat</button>
+                    </div>
+                    <div id="user-menu" class="user-menu" style="display: none;">
+                        <div class="user-info">
+                            <span id="username-display"></span>
+                            <div class="dropdown">
+                                <button class="dropdown-btn">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="profile.html">Profil</a>
+                                    <a href="#" onclick="logout()">Çıxış</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bonus-display">
+                            <i class="fas fa-star"></i>
+                            <span id="user-bonus">0</span> bonus
+                        </div>
+                    </div>
+                </div>
+
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Kitab Mağazasına Xoş Gəldiniz</h1>
+                <p>Ən yaxşı kitabları kəşf edin və oxuma səyahətinizə başlayın</p>
+                <div class="hero-buttons">
+                    <button onclick="window.location.href='products.html'" class="btn btn-primary btn-large">
+                        Kitabları Kəşf Et
+                    </button>
+                    <button onclick="scrollToSection('featured')" class="btn btn-primary btn-large">
+                        Seçilmişlər
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-books">
+                    <div class="book book-1"></div>
+                    <div class="book book-2"></div>
+                    <div class="book book-3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Books -->
+    <section id="featured" class="featured-section">
+        <div class="container">
+            <h2 class="section-title">Seçilmiş Kitablar</h2>
+            <div id="featured-books" class="books-grid">
+                <!-- Books will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories-section">
+        <div class="container">
+            <h2 class="section-title">Kateqoriyalar</h2>
+            <div class="categories-grid">
+                <div class="category-card" onclick="filterByCategory('roman')">
+                    <i class="fas fa-heart"></i>
+                    <h3>Roman</h3>
+                    <p>Ürək buraxan hekayələr</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('elmi')">
+                    <i class="fas fa-flask"></i>
+                    <h3>Elmi</h3>
+                    <p>Bilik və kəşf</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('tarixi')">
+                    <i class="fas fa-landmark"></i>
+                    <h3>Tarixi</h3>
+                    <p>Keçmişin sirləri</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('uşaq')">
+                    <i class="fas fa-child"></i>
+                    <h3>Uşaq</h3>
+                    <p>Uşaqlar üçün üçün</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-books">1000+</h3>
+                        <p>Kitab</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-users">5240+</h3>
+                        <p>İstifadəçi</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>24 Saat</h3>
+                        <p>Çatdırılma</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Premium</h3>
+                        <p>Keyfiyyət</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>Kitab Mağazası</span>
+                    </div>
+                    <p>Ən yaxşı kitabları kəşf edin və oxuma səyahətinizə başlayın...</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Səhifələr</h4>
+                    <ul>
+                        <li><a href="index.html">Ana Səhifə</a></li>
+                        <li><a href="products.html">Kitablar</a></li>
+                        <li><a href="favorites.html">Sevimlilər</a></li>
+                        <li><a href="cart.html">Səbət</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Əlaqə</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +994 51 000 00 00</li>
+                        <li><i class="fas fa-envelope"></i> info@kitabdunyasi.az</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Bakı, Azərbaycan</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Kitab Dünyası. Bütün hüquqlar qorunur.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

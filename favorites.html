@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitab Dünyası - Sevimlilər</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <span>Kitab Mağazası</span>
+                </a>
+                
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link">Ana Səhifə</a>
+                    <a href="products.html" class="nav-link">Kitablar</a>
+                    <a href="favorites.html" class="nav-link active">
+                        <i class="fas fa-heart"></i>
+                        Sevimlilər
+                        <span id="favorites-count" class="count-badge">0</span>
+                    </a>
+                    <a href="cart.html" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        Səbət
+                        <span id="cart-count" class="count-badge">0</span>
+                    </a>
+                </nav>
+
+                <div class="auth-section">
+                    <div id="auth-buttons" class="auth-buttons">
+                        <button onclick="window.location.href='login.html'" class="btn btn-outline">Daxil ol</button>
+                        <button onclick="window.location.href='login.html'" class="btn btn-primary">Qeydiyyat</button>
+                    </div>
+                    <div id="user-menu" class="user-menu" style="display: none;">
+                        <div class="user-info">
+                            <span id="username-display"></span>
+                            <div class="dropdown">
+                                <button class="dropdown-btn">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="profile.html">Profil</a>
+                                    <a href="#" onclick="logout()">Çıxış</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bonus-display">
+                            <i class="fas fa-star"></i>
+                            <span id="user-bonus">0</span> bonus
+                        </div>
+                    </div>
+                </div>
+
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Favorites Section -->
+    <section class="favorites-section">
+        <div class="container">
+            <div class="page-header">
+                <h1>Sevimli Kitablarım</h1>
+                <p>Bəyəndiyiniz kitabların siyahısı</p>
+            </div>
+
+            <div class="favorites-container">
+                <div class="favorites-header">
+                    <div class="favorites-count">
+                        <span id="total-favorites">0</span> sevimli kitab
+                    </div>
+                    <div class="favorites-actions">
+                        <button class="btn btn-outline" onclick="clearFavorites()">
+                            <i class="fas fa-trash"></i>
+                            Hamısını sil
+                        </button>
+                        <button class="btn btn-primary" onclick="addAllToCart()">
+                            <i class="fas fa-shopping-cart"></i>
+                            Hamısını səbətə əlavə et
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Favorites Grid -->
+                <div id="favorites-grid" class="favorites-grid">
+                    <!-- Favorite items will be loaded here -->
+                </div>
+
+                <!-- Empty Favorites -->
+                <div id="empty-favorites" class="empty-state" style="display: none;">
+                    <i class="fas fa-heart"></i>
+                    <h3>Sevimli kitabınız yoxdur</h3>
+                    <p>Bəyəndiyiniz kitabları buraya əlavə edin</p>
+                    <button class="btn btn-primary" onclick="window.location.href='products.html'">
+                        Kitablara bax
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>Kitab Mağazası</span>
+                    </div>
+                    <p>Ən yaxşı kitabları kəşf edin və oxuma səyahətinizə başlayın...</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Səhifələr</h4>
+                    <ul>
+                        <li><a href="index.html">Ana Səhifə</a></li>
+                        <li><a href="products.html">Kitablar</a></li>
+                        <li><a href="favorites.html">Sevimlilər</a></li>
+                        <li><a href="cart.html">Səbət</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Əlaqə</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +994 51 000 00 00</li>
+                        <li><i class="fas fa-envelope"></i> info@kitabdunyasi.az</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Bakı, Azərbaycan</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Kitab Dünyası. Bütün hüquqlar qorunur.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/favorites.js"></script>
+</body>
+</html>

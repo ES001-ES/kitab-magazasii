@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitab Dünyası - Giriş</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <span>Kitab Mağazası</span>
+                </a>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form" class="auth-form active">
+                <h2>Daxil ol</h2>
+                <form onsubmit="return login(event)">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Şifrə</label>
+                        <div class="password-input">
+                            <input type="password" id="login-password" name="password" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('login-password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="remember">
+                            <span class="checkmark"></span>
+                            Məni xatırla
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span class="btn-text">Daxil ol</span>
+                        <div class="btn-loader" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Hesabınız yoxdur? <a href="#" onclick="switchToRegister()">Qeydiyyatdan keçin</a></p>
+                    <p><a href="#" onclick="showAdminLogin()">Admin girişi</a></p>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form" class="auth-form">
+                <h2>Qeydiyyat</h2>
+                <form onsubmit="return register(event)">
+                    <div class="form-group">
+                        <label for="register-name">Ad Soyad</label>
+                        <input type="text" id="register-name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-password">Şifrə</label>
+                        <div class="password-input">
+                            <input type="password" id="register-password" name="password" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('register-password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-confirm">Şifrəni təkrarla</label>
+                        <div class="password-input">
+                            <input type="password" id="register-confirm" name="confirmPassword" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('register-confirm')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" required>
+                            <span class="checkmark"></span>
+                            İstifadə şərtlərini qəbul edirəm
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span class="btn-text">Qeydiyyat</span>
+                        <div class="btn-loader" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Artıq hesabınız var? <a href="#" onclick="switchToLogin()">Daxil olun</a></p>
+                </div>
+            </div>
+
+            <!-- Admin Login Form -->
+            <div id="admin-form" class="auth-form">
+                <h2>Admin Girişi</h2>
+                <form onsubmit="return adminLogin(event)">
+                    <div class="form-group">
+                        <label for="admin-username">İstifadəçi adı</label>
+                        <input type="text" id="admin-username" name="username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="admin-password">Şifrə</label>
+                        <div class="password-input">
+                            <input type="password" id="admin-password" name="password" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('admin-password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span class="btn-text">Admin Girişi</span>
+                        <div class="btn-loader" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p><a href="#" onclick="switchToLogin()">İstifadəçi girişinə qayıt</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="auth-background">
+            <div class="floating-elements">
+                <div class="floating-book book-1"></div>
+                <div class="floating-book book-2"></div>
+                <div class="floating-book book-3"></div>
+                <div class="floating-book book-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h3>Uğurlu!</h3>
+            </div>
+            <div class="modal-body">
+                <p id="success-message">Əməliyyat uğurla yerinə yetirildi</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal('success-modal')">Tamam</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="error-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-exclamation-circle error-icon"></i>
+                <h3>Xəta!</h3>
+            </div>
+            <div class="modal-body">
+                <p id="error-message">Xəta baş verdi</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal('error-modal')">Tamam</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitab Dünyası - Kitablar</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <span>Kitab Mağazası</span>
+                </a>
+                
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link">Ana Səhifə</a>
+                    <a href="products.html" class="nav-link active">Kitablar</a>
+                    <a href="favorites.html" class="nav-link">
+                        <i class="fas fa-heart"></i>
+                        Sevimlilər
+                        <span id="favorites-count" class="count-badge">0</span>
+                    </a>
+                    <a href="cart.html" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        Səbət
+                        <span id="cart-count" class="count-badge">0</span>
+                    </a>
+                </nav>
+
+                <div class="auth-section">
+                    <div id="auth-buttons" class="auth-buttons">
+                        <button onclick="window.location.href='login.html'" class="btn btn-outline">Daxil ol</button>
+                        <button onclick="window.location.href='login.html'" class="btn btn-primary">Qeydiyyat</button>
+                    </div>
+                    <div id="user-menu" class="user-menu" style="display: none;">
+                        <div class="user-info">
+                            <span id="username-display"></span>
+                            <div class="dropdown">
+                                <button class="dropdown-btn">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="profile.html">Profil</a>
+                                    <a href="#" onclick="logout()">Çıxış</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bonus-display">
+                            <i class="fas fa-star"></i>
+                            <span id="user-bonus">0</span> bonus
+                        </div>
+                    </div>
+                </div>
+
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Kitablar</h1>
+                <p>Geniş kitab kolleksiyamızı kəşf edin</p>
+            </div>
+
+            <!-- Filters -->
+            <!-- <div class="filters-section">
+                <div class="filters-header">
+                    <h3>Filterlər</h3>
+                    <button class="filters-toggle" onclick="toggleFilters()">
+                        <i class="fas fa-filter"></i>
+                    </button>
+                </div>
+
+                <div id="filters-content" class="filters-content">
+                    <div class="filter-group">
+                        <label>Axtarış</label>
+                        <div class="search-input">
+                            <input type="text" id="search-input" placeholder="Kitab adı, müəllif...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Kateqoriya</label>
+                        <select id="category-filter">
+                            <option value="">Hamısı</option>
+                            <option value="roman">Roman</option>
+                            <option value="elmi">Elmi</option>
+                            <option value="tarixi">Tarixi</option>
+                            <option value="uşaq">Uşaq</option>
+                            <option value="poeziya">Poeziya</option>
+                            <option value="dram">Dram</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Qiymət aralığı</label>
+                        <div class="price-range">
+                            <input type="number" id="min-price" placeholder="Min" min="0">
+                            <span>-</span>
+                            <input type="number" id="max-price" placeholder="Max" min="0">
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Sıralama</label>
+                        <select id="sort-filter">
+                            <option value="name-asc">Ad (A-Z)</option>
+                            <option value="name-desc">Ad (Z-A)</option>
+                            <option value="price-asc">Qiymət (Aşağı-Yuxarı)</option>
+                            <option value="price-desc">Qiymət (Yuxarı-Aşağı)</option>
+                            <option value="rating-desc">Reytinq</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-actions">
+                        <button class="btn btn-primary" onclick="applyFilters()">Tətbiq et</button>
+                        <button class="btn btn-outline" onclick="clearFilters()">Təmizlə</button>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Products Grid -->
+            <div class="products-container">
+                <div class="products-header">
+                    <div class="results-info">
+                        <span id="results-count">0</span> nəticə tapıldı
+                    </div>
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="products-grid" class="products-grid">
+                    <!-- Products will be loaded here -->
+                </div>
+
+                <!-- Loading -->
+                <div id="products-loading" class="loading-container">
+                    <div class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                    <p>Kitablar yüklənir...</p>
+                </div>
+
+                <!-- No Results -->
+                <div id="no-results" class="no-results" style="display: none;">
+                    <i class="fas fa-search"></i>
+                    <h3>Heç bir nəticə tapılmadı</h3>
+                    <p>Axtarış kriteriyalarınızı dəyişdirməyi cəhd edin</p>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div id="pagination" class="pagination">
+                <!-- Pagination will be generated here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 id="modal-book-title">Kitab Detalları</h3>
+                <button class="close-btn" onclick="closeModal('product-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="product-details">
+                    <div class="product-image">
+                        <img id="modal-book-image" src="" alt="">
+                    </div>
+                    <div class="product-info">
+                        <h2 id="modal-book-title-full"></h2>
+                        <p class="author">Müəllif: <span id="modal-book-author"></span></p>
+                        <p class="category">Kateqoriya: <span id="modal-book-category"></span></p>
+                        <div class="rating">
+                            <div id="modal-book-rating" class="stars"></div>
+                            <span class="rating-text">(<span id="modal-rating-count">0</span> qiymətləndirmə)</span>
+                        </div>
+                        <div class="price">
+                            <span class="current-price" id="modal-book-price">0</span> ₼
+                        </div>
+                        <div class="description">
+                            <h4>Təsvir</h4>
+                            <p id="modal-book-description"></p>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="addToCartFromModal()">
+                                <i class="fas fa-shopping-cart"></i>
+                                Səbətə əlavə et
+                            </button>
+                            <button class="btn btn-outline" onclick="toggleFavoriteFromModal()">
+                                <i id="modal-favorite-icon" class="fas fa-heart"></i>
+                                Sevimli
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>Kitab Mağazası</span>
+                    </div>
+                    <p>Ən yaxşı kitabları kəşf edin və oxuma səyahətinizə başlayın...</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Səhifələr</h4>
+                    <ul>
+                        <li><a href="index.html">Ana Səhifə</a></li>
+                        <li><a href="products.html">Kitablar</a></li>
+                        <li><a href="favorites.html">Sevimlilər</a></li>
+                        <li><a href="cart.html">Səbət</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Əlaqə</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +994 51 000 00 00</li>
+                        <li><i class="fas fa-envelope"></i> info@kitabdunyasi.az</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Bakı, Azərbaycan</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Kitab Dünyası. Bütün hüquqlar qorunur.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/products.js"></script>
+</body>
+</html>
